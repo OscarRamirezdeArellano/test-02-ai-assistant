@@ -68,7 +68,18 @@ export function searchWines(filter: WineSearchFilter, limit = 5): Wine[] {
       const haystack = [wine.nombre, wine.uva, ...wine.maridajes]
         .join(" ")
         .toLowerCase();
-      if (!haystack.includes(term)) return false;
+      // Tokenizamos el maridaje ("tacos al pastor" → ["tacos", "pastor"]) y
+      // hacemos match si CUALQUIER palabra relevante aparece en el catálogo.
+      // Así una frase de platillo pega con las keywords ("tacos", "picante"…).
+      const stop = new Set([
+        "al", "a", "de", "del", "la", "el", "los", "las", "con", "y", "en",
+        "un", "una", "para", "por",
+      ]);
+      const tokens = term
+        .split(/\s+/)
+        .filter((word) => word.length > 2 && !stop.has(word));
+      const searchTerms = tokens.length > 0 ? tokens : [term];
+      if (!searchTerms.some((t) => haystack.includes(t))) return false;
     }
     return true;
   });
