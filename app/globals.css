@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+/* Paleta con acento "vino"; modo oscuro por preferencia del sistema. */
+:root {
+  --background: #faf7f5;
+  --foreground: #1c1917; /* stone-900 */
+  --card: #ffffff;
+  --border: #e7e0da;
+  --muted: #78716c; /* stone-500 */
+  --accent: #9f1239; /* rose-800 (burdeos) */
+  --accent-foreground: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #12100f;
+    --foreground: #ede9e6;
+    --card: #1c1917; /* stone-900 */
+    --border: #292524; /* stone-800 */
+    --muted: #a8a29e; /* stone-400 */
+    --accent: #fb7185; /* rose-400 */
+    --accent-foreground: #1c1917;
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
