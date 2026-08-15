@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Vino — Sommelier IA",
+  title: "Wain — Sommelier IA",
   description:
     "Asistente de IA especializado en maridaje de vinos y bebidas, con streaming, tool calling y memoria de conversación.",
 };
@@ -38,7 +38,7 @@ export default function RootLayout({
               🍷
             </span>
             <div className="leading-tight">
-              <p className="font-bold">Vino</p>
+              <p className="font-bold">Wain</p>
               <p className="text-xs text-muted">Sommelier de maridaje · IA</p>
             </div>
           </div>

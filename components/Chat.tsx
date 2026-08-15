@@ -180,7 +180,7 @@ function EmptyState({ onPick }: { onPick: (q: string) => void }) {
         <span className="text-5xl" aria-hidden>
           🍷
         </span>
-        <h2 className="text-lg font-semibold">Hola, soy Vino</h2>
+        <h2 className="text-lg font-semibold">Hola, soy Wain</h2>
         <p className="max-w-sm text-sm text-muted">
           Tu sommelier de maridaje. Dime qué vas a comer o qué se te antoja y te
           recomiendo la bebida perfecta — con o sin alcohol.

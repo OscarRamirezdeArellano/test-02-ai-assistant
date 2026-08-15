@@ -40,3 +40,92 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
 }
+
+/* Estilos del Markdown renderizado en las respuestas del asistente.
+   Compactos y acordes al chat; sin plugin de tipografía. */
+.md-content > *:first-child {
+  margin-top: 0;
+}
+.md-content > *:last-child {
+  margin-bottom: 0;
+}
+.md-content p {
+  margin: 0.5rem 0;
+}
+.md-content ul,
+.md-content ol {
+  margin: 0.5rem 0;
+  padding-left: 1.25rem;
+}
+.md-content ul {
+  list-style: disc;
+}
+.md-content ol {
+  list-style: decimal;
+}
+.md-content li {
+  margin: 0.15rem 0;
+}
+.md-content strong {
+  font-weight: 600;
+}
+.md-content em {
+  font-style: italic;
+}
+.md-content a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.md-content h1,
+.md-content h2,
+.md-content h3 {
+  font-weight: 600;
+  margin: 0.75rem 0 0.35rem;
+  line-height: 1.25;
+}
+.md-content h1 { font-size: 1.15rem; }
+.md-content h2 { font-size: 1.05rem; }
+.md-content h3 { font-size: 1rem; }
+.md-content code {
+  background: color-mix(in srgb, var(--muted) 22%, transparent);
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.3rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.85em;
+}
+.md-content pre {
+  background: color-mix(in srgb, var(--muted) 18%, transparent);
+  padding: 0.75rem;
+  border-radius: 0.6rem;
+  overflow-x: auto;
+  margin: 0.5rem 0;
+}
+.md-content pre code {
+  background: transparent;
+  padding: 0;
+}
+.md-content blockquote {
+  border-left: 3px solid var(--border);
+  padding-left: 0.75rem;
+  color: var(--muted);
+  margin: 0.5rem 0;
+}
+.md-content table {
+  border-collapse: collapse;
+  margin: 0.5rem 0;
+  font-size: 0.9em;
+  display: block;
+  overflow-x: auto;
+}
+.md-content th,
+.md-content td {
+  border: 1px solid var(--border);
+  padding: 0.35rem 0.6rem;
+  text-align: left;
+}
+.md-content hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 0.75rem 0;
+}

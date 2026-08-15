@@ -1,4 +1,4 @@
-# Vino — Sommelier IA 🍷
+# Wain — Sommelier IA 🍷
 
 Asistente de IA especializado en **maridaje de vinos y bebidas**, construido con **Next.js 16 (App Router)**, **TypeScript**, **Tailwind CSS v4** y el **Vercel AI SDK v6** sobre la **API de Anthropic** (Claude Haiku 4.5).
 
@@ -37,7 +37,7 @@ Elegí un **sommelier de maridaje** (ninguno de los dominios sugeridos en el ret
 
 El prompt (en `lib/personalities.ts`) se compone de dos capas:
 
-- **Identidad + reglas (fijas):** quién es "Vino", que habla **solo** de maridaje y reconduce fuera de tema, que fomenta el consumo responsable y verifica mayoría de edad **sin ser repetitivo**, que **siempre ofrece una alternativa sin alcohol**, que no da consejo médico, y **cómo y cuándo usar la herramienta** de catálogo (grounding con nombre, región y precio).
+- **Identidad + reglas (fijas):** quién es "Wain", que habla **solo** de maridaje y reconduce fuera de tema, que fomenta el consumo responsable y verifica mayoría de edad **sin ser repetitivo**, que **siempre ofrece una alternativa sin alcohol**, que no da consejo médico, y **cómo y cuándo usar la herramienta** de catálogo (grounding con nombre, región y precio).
 - **Tono (variable por modo):** `Clásico`, `Casual` o `Experto`. El usuario lo cambia en la UI y viaja en el body de cada request; el servidor arma el system prompt según el modo.
 
 Separar identidad de tono permite ofrecer **3 personalidades** sin duplicar reglas ni arriesgar que un modo se salte los límites.
@@ -64,6 +64,7 @@ Separar identidad de tono permite ofrecer **3 personalidades** sin duplicar regl
 - **Persistencia en `localStorage`**: la conversación y el modo sobreviven a un refresh.
 - **Tool calling**: herramienta `buscarVinos` sobre un catálogo local (`lib/wines.ts`).
 - **Rate limiting** por IP en el API route (ventana fija en memoria).
+- **Respuestas en Markdown renderizado** (negritas, listas, tablas) con `react-markdown`.
 - **Deploy en Vercel**: _(ver sección Deploy)_.
 
 ---
@@ -82,13 +83,14 @@ Separar identidad de tono permite ofrecer **3 personalidades** sin duplicar regl
 
 **Rate limiting pragmático.** Ventana fija en memoria: mitiga abuso básico pero es **por instancia** en serverless. En producción usaría Upstash Redis / Vercel KV para un límite distribuido (lo anoto abajo).
 
-**Sin librería de markdown.** Las respuestas se renderizan con `whitespace-pre-wrap`. Suficiente y legible; con más tiempo añadiría render de markdown.
+**Markdown renderizado.** Las respuestas del asistente se renderizan con `react-markdown` + `remark-gfm` (negritas, listas, tablas), con estilos propios en `globals.css`. Los enlaces abren en pestaña nueva con `rel="noopener"`, y no se permite HTML crudo del modelo (seguridad). Los mensajes del **usuario** se muestran en texto plano a propósito.
+
+**El nombre "Wain".** Un guiño juguetón a _wine_: le da personalidad e identidad memorable al asistente sin perder criterio de sommelier. El nombre y el tono viven en el system prompt (`lib/personalities.ts`).
 
 ---
 
 ## 🔮 Qué haría con más tiempo
 
-- **Render de markdown** (negritas, listas, tablas de maridaje) con sanitización.
 - **Rate limiting distribuido** (Upstash Redis) y límites por usuario, no solo por IP.
 - **Más herramientas**: guardar favoritos, filtrar por tipo de uva, "sorpréndeme".
 - **Streaming de UI de la herramienta**: mostrar los vinos encontrados como tarjetas dentro del chat, no solo un chip.
@@ -121,6 +123,6 @@ lib/
 
 ## ☁️ Deploy
 
-Desplegado en Vercel. Configura `ANTHROPIC_API_KEY` como variable de entorno del proyecto.
+Desplegado en Vercel (producción). Requiere `ANTHROPIC_API_KEY` como variable de entorno del proyecto (solo servidor).
 
-**URL:** _pendiente_
+**URL:** https://test-02-ai-assistant.vercel.app

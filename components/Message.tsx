@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import type { SommelierUIMessage } from "@/lib/types";
 import { estimateCostUSD, formatUSD } from "@/lib/pricing";
 
@@ -19,7 +21,7 @@ export function Message({ message }: { message: SommelierUIMessage }) {
     >
       <div className="flex items-center gap-2 text-xs text-muted">
         <span aria-hidden>{isUser ? "🧑" : "🍷"}</span>
-        {isUser ? "Tú" : "Vino, el sommelier"}
+        {isUser ? "Tú" : "Wain, el sommelier"}
       </div>
 
       <div
@@ -31,10 +33,25 @@ export function Message({ message }: { message: SommelierUIMessage }) {
       >
         {message.parts.map((part, i) => {
           if (part.type === "text") {
-            return (
+            // Los mensajes del usuario van en texto plano; los del asistente
+            // se renderizan como Markdown (negritas, listas, tablas…).
+            return isUser ? (
               <p key={i} className="whitespace-pre-wrap">
                 {part.text}
               </p>
+            ) : (
+              <div key={i} className="md-content">
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  components={{
+                    a: ({ ...props }) => (
+                      <a {...props} target="_blank" rel="noopener noreferrer" />
+                    ),
+                  }}
+                >
+                  {part.text}
+                </ReactMarkdown>
+              </div>
             );
           }
           // Partes de herramienta: tool-buscarVinos, etc.
