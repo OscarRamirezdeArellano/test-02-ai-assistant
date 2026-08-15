@@ -44,6 +44,45 @@ Separar identidad de tono permite ofrecer **3 personalidades** sin duplicar regl
 
 ---
 
+## 🍷 El catálogo (qué puede recomendar Wain)
+
+La herramienta `buscarVinos` consulta este catálogo de **16 bebidas** (`lib/wines.ts`), con precios de **$90 a $1,200 MXN** y **5 tipos** (tinto, blanco, rosado, espumoso y sin alcohol). Cuando pides algo concreto, Wain lo filtra por **platillo, tipo, presupuesto o región** y **cita datos reales** en lugar de inventar etiquetas.
+
+| Nombre | Tipo | Región | Precio (MXN) | Marida con |
+|--------|------|--------|-------------:|------------|
+| Casa Madero 2V | tinto | Valle de Parras, México | $320 | carne, res, cordero, quesos |
+| Santo Tomás Tempranillo | tinto | Valle de Guadalupe, México | $380 | carne, asado, barbacoa, cordero |
+| Rioja Crianza | tinto | Rioja, España | $450 | carne, jamón, cochinita, cordero |
+| Malbec de Mendoza | tinto | Mendoza, Argentina | $400 | carne, arrachera, res, chocolate |
+| Pinot Noir Casablanca | tinto | Valle de Casablanca, Chile | $420 | salmón, atún, pato, champiñones |
+| Sauvignon Blanc Marlborough | blanco | Marlborough, Nueva Zelanda | $390 | pescado, ceviche, ensalada, queso de cabra |
+| Chardonnay con barrica | blanco | Valle de Guadalupe, México | $430 | pollo, pasta cremosa, langosta, camarón |
+| Albariño | blanco | Rías Baixas, España | $460 | mariscos, pulpo, almejas, ceviche |
+| Riesling semi-seco | blanco | Mosela, Alemania | $410 | comida picante, tailandesa, curry, cerdo |
+| Rosado de Provenza | rosado | Provenza, Francia | $440 | ensalada, sushi, aperitivo, pizza |
+| Cava Brut | espumoso | Penedés, España | $350 | aperitivo, fritura, sushi, celebración |
+| Champagne Brut | espumoso | Champagne, Francia | $1,200 | celebración, ostras, caviar, quesos |
+| Prosecco Extra Dry | espumoso | Véneto, Italia | $300 | brunch, aperitivo, postre, fruta |
+| Oporto Tawny | tinto | Douro, Portugal | $520 | postre, chocolate, quesos azules, nuez |
+| Kombucha de jamaica | sin alcohol | Artesanal, México | $90 | tacos, comida picante, ensalada, aperitivo |
+| Mosto de uva blanca | sin alcohol | Sin alcohol | $120 | pescado, ensalada, brunch, aperitivo |
+
+### Prompts de ejemplo para ver el _tool calling_ en acción
+
+Estos disparan la herramienta y devuelven resultados concretos del catálogo:
+
+- **"¿Qué le va a unos tacos al pastor?"** → Kombucha y Albariño (match por _tacos_).
+- **"Recomiéndame un tinto para carne asada por menos de $400"** → Casa Madero, Santo Tomás, Malbec.
+- **"¿Qué vino para salmón?"** → Pinot Noir (el único tinto que marida pescado).
+- **"Mariscos con algo de España"** → Albariño (Rías Baixas).
+- **"¿Qué espumoso para una celebración?"** → Cava y Champagne.
+- **"Algo sin alcohol para una comida picante"** → Kombucha de jamaica.
+- **"Muéstrame opciones de México"** → Casa Madero, Santo Tomás, Chardonnay, Kombucha.
+
+Wain también responde fuera del catálogo con criterio general (por tipo de uva/estilo) y **siempre ofrece una alternativa sin alcohol** cuando aplica.
+
+---
+
 ## ✅ Qué construí
 
 ### Requerimientos base
